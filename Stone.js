@@ -1,4 +1,4 @@
-class SlingShot{
+class Stone{
     constructor(bodyA, pointB){
         var options = {
             bodyA: bodyA,
@@ -6,26 +6,23 @@ class SlingShot{
             stiffness: 0.04,
             length: 10
         }
-        this.sling1 = loadImage('sprites/sling1.png');
-        this.sling2 = loadImage('sprites/sling2.png');
-        this.sling3 = loadImage('sprites/sling3.png');
+        this.stone = loadImage('sprites/stone.png');       
         this.pointB = pointB
-        this.sling = Constraint.create(options);
-        World.add(world, this.sling);
+        this.stone = Constraint.create(options);
+        World.add(world, this.stone);
     }
     attach(body){
-        this.sling.bodyA = body;
+        this.stone.bodyA = body;
     }
     
     fly(){
-        this.sling.bodyA = null;
+        this.stone.bodyA = null;
     }
 
     display(){
-        image(this.sling1,200,20);
-        image(this.sling2,170,20);
-        if(this.sling.bodyA){
-            var pointA = this.sling.bodyA.position;
+        image(this.stone,200,20);
+        if(this.stone.bodyA){
+            var pointA = this.stone.bodyA.position;
             var pointB = this.pointB;
             push();
             

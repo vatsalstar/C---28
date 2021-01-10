@@ -1,21 +1,31 @@
-class Mango {
-    constructor(x,y,width,height) {
-      var options = {
-          isStatic: true
-      }
-      this.body = Bodies.rectangle(x,y,width,height,options);
-      this.width = width;
-      this.height = height;
-      this.image1 = loadImage("Images/mango.png");
-      this.image2 = loadImage("Images/mango.png");
-      this.image3 = loadImage("Images/mango.png");
-      this.image4 = loadImage("Images/mango.png");
-      this.image5 = loadImage("Images/mango.png");
-      World.add(world, this.body);
+class Mango extends BaseClass {
+  constructor(x, y){
+    super(x,y,50,50);
+    this.image = loadImage("sprites/mango.png");
+    this.Visiblity = 255;
+  }
+
+ display(){
+   //console.log(this.body.speed);
+   if(this.body.speed < 3){
+    super.display();
+   }
+   else{
+     World.remove(world, this.body);
+     push();
+     this.Visiblity = this.Visiblity - 5;
+     tint(255,this.Visiblity);
+     image(this.image, this.body.position.x, this.body.position.y, 50, 50);
+     pop();
+   }
+  }
+
+  score(){
+    if (this.Visiblity < 0 && this.Visiblity > -1005){
+      score++;
     }
-    display(){
-      var pos =this.body.position;
-      imageMode(CENTER);
-      image(this.image,pos.x, pos.y, this.width, this.height);
-    }
-  };
+  }
+
+
+
+};
