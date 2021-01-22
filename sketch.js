@@ -2,9 +2,10 @@ const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
+const Constraint = Matter.Constraint;
 
 
-var ground,tree,boy,mango1,mango2,mango3,mango4,mango5;
+var ground,tree,boy,mango1,mango2,mango3,mango4,mango5,chain,stone;
 
 function preload()
 {
@@ -12,30 +13,39 @@ function preload()
 }
 
 function setup() {
-	createCanvas(1200, 700);
+	createCanvas(1300, 600);
 
 
 	engine = Engine.create();
 	world = engine.world;
 
-   ground =new Ground(600,690,1200,25);
-   tree = new Tree(900,400,500,900);
-   boy = new Boy(250,550,300,500);
-   mango1 =new Mango1(500,500,20,20);
-   mango2 =new Mango2(600,500,20,20);
-   mango3 =new Mango3(700,200,20,20);
-   mango4 =new Mango4(650,300,20,20);
-   mango5 =new Mango5(750,350,20,20);
+   ground =new Ground(width/2,600,width,20);
+   mango1 =new Mango(950,100,10);
+   mango2 =new Mango(1020,130,10);
+   mango3 =new Mango(1050,200,10);
+   mango4 =new Mango(1200,120,10);
+   mango5 =new Mango(1200,250,10);
+   tree = new Tree(1050,280,500,600);
+   boy = new Boy(400,470,300,500);
+   stone = new Stone(320,300);
+   chain = new Chain(stone.body,{x:320,y:225});
 
 	Engine.run(engine);
   
 }
-
+function mouseDragged(){ 
+  Matter.Body.setPosition(stone.body,{x:mouseX,y:mouseY}); 
+} 
+function mouseReleased()
+{ chain.fly(); 
+}
 
 function draw() {
   rectMode(CENTER);
   background("#87CEEB");
-
+if(keyIsPressed===true){
+  chain.attach();
+}
   ground.display();
   tree.display();
   boy.display();
@@ -44,7 +54,8 @@ function draw() {
   mango3.display();
   mango4.display();
   mango5.display();
-  
+  chain.display();
+  stone.display();
 }
 
 
